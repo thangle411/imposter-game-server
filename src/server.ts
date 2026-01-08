@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import seenWords from './routes/seenWords.ts';
+import seenWords from './routes/seenWords';
 import cors from 'cors';
 
 const app = express();
