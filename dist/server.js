@@ -10,16 +10,18 @@ const app = (0, express_1.default)();
 const port = 3000;
 // middleware
 var whitelist = ['https://imposter-game-tl.netlify.app', 'http://localhost:5173'];
-var corsOptions = {
-    // @ts-ignore
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin)
+            return callback(null, true);
+        if (whitelist.includes(origin)) {
             callback(null, true);
         }
         else {
-            callback(new Error('Not allowed by CORS'));
+            callback(null, true);
         }
-    }
+    },
+    credentials: true
 };
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
@@ -31,4 +33,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-exports.default = app;
